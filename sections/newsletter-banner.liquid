@@ -1,0 +1,139 @@
+<header>
+  <div class="container">
+    <div class="strip">
+      <img id="icon_btn" src="{{ 'plusIcon.svg' | asset_url }}" alt="plusIcon" width="12">
+      <p>!חדשה באתר? הירשמי לדיוור שלנו וקבלי 10 % הנחה</p>
+    </div>
+    <div class="row">
+      <div class="banner">
+        <h1>{{ section.settings.custom_text_title }}</h1>
+        <h4>{{ section.settings.custom_text_subTitle }}</h4>
+        
+      </div>
+    </div>
+   
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Newsletter Banner",
+   "settings": [
+      {
+        "id": "custom_text_title",
+        "type": "text",
+        "label": "Text box heading",
+        "default": "!הראשונה לדעת הראשונה לקחת"
+      },
+      {
+        "id": "custom_text_subTitle",
+        "type": "text",
+        "label": "Text box subHeading",
+        "default": ":בחני את תחומי העניין שלך ונעדכן אותך רק במה שרלוונטי עבורך"
+      }
+    ],
+   "blocks": []
+}
+{% endschema %}
+
+{% stylesheet %}
+  header {
+      padding: 0;
+      margin: 0;
+      font-family: 'Heebo', sans-serif;
+  }
+
+  header .container .strip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 30px;
+      padding: 10px 0;
+  }
+
+  header .container .strip img {
+      margin-right: 24px;
+  }
+
+  header .container .strip p {
+      margin: 0;
+  }
+
+  header .container .row {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+  }
+
+  header .container .row .banner {
+      min-height: 350px;
+      display: none;
+      width: 60%;
+      background: white;
+      border-radius: 0 0 80px 80px;
+      padding: 24px;
+        font-family: 'Heebo', sans-serif;
+
+  }
+
+  header .container .row .banner h1 {
+      margin: 0;
+  }
+
+  header .container .row .banner h4 {
+      font-weight: 400;
+      margin: 0;
+      padding-top: 8px;
+  }
+
+  
+    header .container .row .banner .checkbox-round {
+ width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+  header .container .row .banner .checkbox-round:checked {
+    background-color: gray;
+}
+
+  @media (max-width:768px) {
+      header .container .row .banner {
+          width: 100%;
+      }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  let isBannerOpen = false;
+
+  function iconToggle() {
+      let icon_btn = document.querySelector("#icon_btn");
+      let strip = document.querySelector(".strip");
+      let banner = document.querySelector(".banner");
+      strip.style.cursor = "pointer"
+      strip.addEventListener("click", function () {
+          //  when the banner is opening the click will close it
+          if (isBannerOpen) {
+              banner.style.display = "none";
+            icon_btn.style.transform = "rotate(90deg)";
+              isBannerOpen = false;
+          }
+          //  when the banner is closing the click will open it
+          else {
+              banner.style.display = "block";
+            icon_btn.style.transform = "rotate(45deg)";
+            isBannerOpen = true;
+          }
+      });
+  }
+
+  iconToggle();
+{% endjavascript %}
